@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+   @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100;1,200;1,400;1,500&display=swap');
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 9px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+
+body {
+    background-color: #fff;
+}
+
+section {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    background-color: #ccc;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 5%;
+}
+
+header .logo a {
+    font-size: 25px;
+    color: rgb(89, 16, 134);
+}
+
+header .logo a span {
+    color: #111;
+}
+
+/* Add the following styles */
+.Menu {
+display: flex;
+list-style: none;
+font-size: 15px;
+}
+
+.Menu li {
+position: relative;
+margin: 0 15px; /* Ajoute un espace horizontal de 15px entre les éléments du menu */
+}
+
+.Menu li::after {
+content: "";
+position: absolute;
+bottom: -5px;
+left: 0;
+width: 0;
+height: 2px;
+background-color: transparent;
+transition: width 0.3s;
+}
+
+.Menu li:hover::after {
+width: 0%;
+background-color: rgb(89, 16, 134); /* Couleur du trait lors du survol */
+}
+
+.menu-item {
+position: relative;
+}
+
+.menu-item:hover {
+color: #000;
+text-decoration: underline;
+}
+
+.menu-item::before {
+content: "";
+position: absolute;
+bottom: -2px;
+left: 0;
+width: 100%;
+height: 2px;
+background-color: transparent;
+
+}
+
+.menu-item:hover::before {
+transform: scaleX(1);
+background-color: rgb(89, 16, 134); /* Couleur du trait lors du survol */
+}
+
+
+.btn-reservation {
+    color: rgb(109, 39, 174);
+    font-size: 14px;
+    border: 2px solid rgb(89, 16, 134);
+    padding: 5px 20px;
+    transition: 0.5s;
+}
+
+.btn-reservation:hover {
+    background-color: rgb(89, 16, 134);
+    color: #ccc;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.btn-info {
+    color: rgb(109, 39, 174);
+    font-size: 14px;
+    border: 2px solid rgb(89, 16, 134);
+    padding: 5px 20px;
+    transition: 0.5s;
+}
+
+.btn-info:hover {
+    background-color: rgb(89, 16, 134);
+    color: #ccc;
+    font-weight: bold;
+}
+
+#Home {
+    height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-align: left;
+    padding: 0 5%;
+    backdrop-filter: blur(5px); /* Add blur effect */
+    width: 100%;
+}
+
+#Home h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+#Home p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.home-btn {
+    margin-top: 20px;
+}
+.elementor-widget-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.elementor-image {
+    float: right;
+    width: 50%; /* Ajuste la largeur de l'image à droite */
+    height: auto;
+    margin-left: 30%;
+}
+
+.elementor-widget-container .elementor-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+.wrapper {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    border: 2px solid rgb(89, 16, 134, .5);
+    display: none; /* Start with the login box hidden */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px); /* Add blur effect */
+    z-index: 999; /* Set z-index to be above the blurred content */
+    transition: height .2s ease;
+}
+.wrapper .form-box {
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.388);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+}
+.wrapper .form-box.hide {
+display: none;
+}
+
+.wrapper .form-box.show {
+display: block;
+opacity: 1;
+transform: translateY(0);
+transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+.form-box h2{
+    font-size: 2em;
+    color: rgb(89, 16, 134, .5);
+    text-align: center;
+}
+.btn {
+    width: 100%;
+    height: 45px;
+    background: rgb(89, 16, 134);
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+}
+.login-register {
+    font-size: .9em;
+    color: #111;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+.login-register p{
+    text-align: center;
+}
+.login-register p a{
+    text-decoration: none;
+}
+.login-register p a:hover {
+    text-decoration: underline;
+}
+.main-container {
+  text-align: left; /* Aligne le contenu du container à droite */
+  margin-left: 60px; /* Déplace le container de 20 pixels vers la droite */
+}
+.main-container .widget-content {
+  font-size: 30px; /* Ajustez la taille de police selon vos préférences */
+}
+.main-container.elementor-heading-title.elementor-size-default {
+  color: orange; /* Modifie la couleur du texte en orange */
+}
+
+.main-container .widget-heading.default-size {
+    text-align: left;
+}
+
+.widget-heading.default-size {
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+}
+.e-con-boxed {
+  display: flex;
+}
+
+.e-con-full {
+  flex: 1;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around; /* or flex-start */
+  align-items: center;
+  font-size: 16px;
+}
+
+
+
+.rating {
+  text-align: center;
+  
+}
+
+.score {
+  font-weight: bold;
+  font-size: 60px;
+  margin-bottom: 40px;
+  font-family: "Poppins", Sans-serif;
+}
+
+.stars {
+  font-size: 18px;
+  font-weight: bold;
+  color: #F0AD4E;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ratings-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.google-ratings, .bbb-ratings {
+  font-size: 60px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.google-count, .bbb-count {
+  font-size: 14px;
+}
+.testimonial-text{
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.testimonial-author{
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(89, 16, 134);
+    margin-bottom: 20px;
+}
+.container-2{
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-around; 
+  align-items: center;
+  font-size: 16px;
+}
+.our-services{
+     font-size: 40px;
+     font-weight: bold;
+     margin-bottom: 20px;
+}
+.elementor-button-text{
+    color: rgb(109, 39, 174);
+    font-size: 14px;
+    border: 2px solid rgb(89, 16, 134);
+    padding: 5px 20px;
+    transition: 0.5s;
+}
+
+.elementor-button-text:hover {
+    background-color: rgb(89, 16, 134);
+    color: #ccc;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+#container-3 {
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  padding: 0 5%;
+}
+
+#text-container {
+  width: 60%;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 18px;
+  flex: 1 1 auto;
+}
+
+.text-container p {
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.img2 {
+  float: right;
+  height: 80%;
+  width: 30%;
+  margin-right: 20px;
+}
+
+.img3 {
+  height: 80%;
+  width: 30%;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+.text-container{
+  width: 60%;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 18px;
+  flex: 1 1 auto;
+}
+.text-container2 {
+  width: 60%;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 18px;
+  flex: 1 1 auto;
+}
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1px;
+  background-color: black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.line-text {
+  background-color: white;
+  padding: 0 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+
+
+
+  </style>
+  <title>Aeroport</title>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html" class="menu-item">ASFAR <span>Aereport</span></a>
+    </div>
+    <ul class="Menu">
+      <li><a href="#" class="menu-item">Flights</a></li>
+      <li><a href="#" class="menu-item">Tickets</a></li>
+      <li><a href="#" class="menu-item">About us</a></li>
+      <li><a href="#" class="menu-item">Contact</a></li>
+    </ul>
+    <div>
+      <a href="flight/views.py" class="btn-reservation">Book your flight</a>
+    </div>
+  </header>
+
+  <section id="Home">
+    <div>
+        <h2>Flight Access: Your Gate to Travel</h2>
+        <p>ASFAR Aeroport, the ultimate passenger-oriented website,</p>
+        <p>simplifies your travel experience by providing gate access information for your preferred airline and
+            flight.</p>
+        <a href="#" class="btn-info home-btn">More informations</a>
+    </div>
+    <div class="elementor-widget-container">
+        <div class="elementor-image">
+            <img src="https://previews.123rf.com/images/lucadp/lucadp1510/lucadp151000056/47531254-tablet-pc-avec-une-application-de-r%C3%A9servation-de-vol-un-passeport-et-un-petit-avion-sur-fond-blanc.jpg"
+                class="attachment-full size-full wp-image-66419" alt="" loading="lazy">
+        </div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="rating">
+      <div class="score">4.8</div>
+      <div class="stars">★★★★★</div>
+      <div class="google-count">2,394 Ratings</div>
+      <div class="google-reviews">Google Reviews</div>
+    </div>
+    <div class="reviews">
+      <div class="bbb-ratings">A+</div>
+      <div class="stars">★★★★★</div>
+      <div class="bbb-count">125 Reviews</div>
+      <div class="bbb-rating">BBB Rating</div>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-text">Trusted by numerous Airline passengers</div>
+      <div class="testimonial-author">Jessica Simon</div>
+      <div class="testimonial-review">
+        <p>I found this website to be incredibly helpful in providing me with all the necessary information for my flight,</p>
+        <p>making my travel experience that much smoother.</p></div>
+    </div>
+  </div>
+  
+<div class="container-2">
+    <div class="our-services">Our services</div>
+    <a href="" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+        <span class="elementor-button-content-wrapper">
+        <span class="elementor-button-text">View All Services</span>
+</span>
+    </a>
+</div>
+<div class="container-3">
+    <div class="image">
+      <img src="https://media.istockphoto.com/id/516448058/vector/europe-airport-digital-boarding.jpg?s=1024x1024&w=is&k=20&c=HuxaCoBFHbr5A-R4NljhCR_l7R1rxfedfS4O9N9TVPA=" class="img2" alt="" loading="lazy">
+    </div>
+    <div class="text-container">
+      <p>Bienvenue à notre compagnie aérienne. Nous sommes ravis de vous présenter les informations de vol les plus récentes. Que vous voyagiez pour affaires ou pour le plaisir, nous sommes là pour vous fournir des vols sûrs et confortables vers de nombreuses destinations passionnantes à travers le monde. Notre équipe dévouée travaille sans relâche pour assurer des départs et des arrivées ponctuels. Nous mettons à votre disposition des informations détaillées sur les horaires de vol, les numéros de porte, les retards éventuels et les informations de suivi des bagages. Grâce à notre système de gestion des vols en temps réel, vous pouvez être assuré d'être informé rapidement de tout changement ou mise à jour concernant votre vol.</p>
+    </div>
+  </div>
+  <div class="container-3">
+    <div class="image">
+      <img src="https://cdn.businesstraveller.com/wp-content/uploads/2017/09/%E6%96%B0%E8%81%9E%E7%85%A7.jpg" class="img3" loading="lazy">
+    </div>
+    <div class="text-container2">
+      <p>Nos compagnies de vols offrent une gamme complète de services pour répondre à vos besoins de voyage. Avec un engagement indéfectible envers la sécurité, le confort et la satisfaction des passagers, nous nous efforçons de rendre chaque vol mémorable et agréable. Que vous voyagiez pour affaires ou pour le plaisir, nos compagnies de vols mettent tout en œuvre pour vous offrir une expérience de voyage exceptionnelle. Nous disposons d'une flotte moderne d'avions équipés des dernières technologies, garantissant des vols sûrs et efficaces vers des destinations du monde entier. Nos équipes de professionnels dévoués sont là pour vous accompagner à chaque étape de votre voyage, que ce soit lors de l'enregistrement, à bord de l'avion ou à votre arrivée à destination. Nous nous efforçons de répondre à tous vos besoins et de rendre votre expérience de vol aussi confortable et pratique que possible.</p>
+    </div>
+  </div>
+  
+</div>
+<div class="line">
+    <span class="line-text">Caractéristiques et avantages</span>
+  </div>
+  <div class="elementor-element elementor-element-f36c224 e-con-full e-flex e-con" data-id="f36c224" data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+		<div class="elementor-element elementor-element-8bc331c e-con-full e-flex e-con" data-id="8bc331c" data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+				<div class="elementor-element elementor-element-3a48808 elementor-widget elementor-widget-heading" data-id="3a48808" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h3 class="elementor-heading-title elementor-size-default">Features</h3>		</div>
+				</div>
+				<div class="elementor-element elementor-element-f0b7188 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-invisible elementor-widget elementor-widget-icon-list" data-id="f0b7188" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}" data-widget_type="icon-list.default">
+				<div class="elementor-widget-container">
+					<ul class="elementor-icon-list-items">
+							<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Easy and convenient online booking system for flights</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Accurate flight information, including gate access details</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">User-friendly interface for quick and hassle-free navigation</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Secure payment gateway for safe and secure transactions</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">24/7 customer support for prompt assistance and guidance</span>
+									</li>
+						</ul>
+				</div>
+				</div>
+				</div>
+		<div class="elementor-element elementor-element-3724754 e-con-full e-flex e-con" data-id="3724754" data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+				<div class="elementor-element elementor-element-a7b985b elementor-widget elementor-widget-heading" data-id="a7b985b" data-element_type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+			<h3 class="elementor-heading-title elementor-size-default">Benefits</h3>		</div>
+				</div>
+				<div class="elementor-element elementor-element-f8f294d elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-invisible elementor-widget elementor-widget-icon-list" data-id="f8f294d" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}" data-widget_type="icon-list.default">
+				<div class="elementor-widget-container">
+					<ul class="elementor-icon-list-items">
+							<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Efficient and convenient access to gate information for selected airline and flight</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">No more confusion and stress trying to find the correct gate</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Easy and user-friendly interface for a hassle-free experience</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Saves time and reduces airport anxiety</span>
+									</li>
+								<li class="elementor-icon-list-item">
+											<span class="elementor-icon-list-icon">
+							<i aria-hidden="true" class="far fa-dot-circle"></i>						</span>
+										<span class="elementor-icon-list-text">Accessible from anywhere, anytime for quick updates and changes</span>
+									</li>
+						</ul>
+				</div>
+				</div>
+				</div>
+		<div class="elementor-element elementor-element-721f5b3 e-con-full e-flex e-con" data-id="721f5b3" data-element_type="container" data-settings="{&quot;content_width&quot;:&quot;full&quot;}">
+				<div class="elementor-element elementor-element-66b4309 elementor-widget elementor-widget-image" data-id="66b4309" data-element_type="widget" data-widget_type="image.default">
+				<div class="elementor-widget-container">
+								<div class="elementor-image">
+												<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.aci.aero%2Fan-airports-dna-developing-a-vision-internal-storyline-and-service-concepts-for-the-optimal-passenger-experience%2F&psig=AOvVaw2yGaLDxAVZj4CL282BSKhi&ust=1687866485096000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCOiIrOfu4P8CFQAAAAAdAAAAABAE" class="attachment-full size-full wp-image-79351" alt="" loading="lazy" />
+                  </div>
+
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+					</div>
+				</div>
+<script>
+const signupButton = document.getElementById("signup-button");
+const loginBox = document.getElementById("login-box");
+const registerBox = document.getElementById("register-box");
+
+signupButton.addEventListener("click", () => {
+  loginBox.classList.add("hide");
+  registerBox.classList.remove("hide");
+  document.getElementById("Home").style.filter = "blur(5px)";
+  document.body.style.overflow = "hidden";
+});
+
+const registerLink = document.querySelector(".register-link");
+registerLink.addEventListener('click', () => {
+  loginBox.classList.remove("hide");
+  registerBox.classList.add("hide");
+  document.getElementById("Home").style.filter = "none";
+  document.body.style.overflow = "auto";
+});
+</script>
+</body>
+</html>
